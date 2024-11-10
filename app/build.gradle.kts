@@ -1,11 +1,13 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt)
+    id("kotlin-kapt")
 }
 
 android {
     namespace = "com.app.uxcam.analytics"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.app.uxcam.analytics"
@@ -42,8 +44,14 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.workmanager)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.work)
+    kapt(libs.hilt.compiler)
+    kapt(libs.androidx.hilt.compiler)
     testImplementation(libs.junit)
-    testImplementation(libs.workmanager)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
