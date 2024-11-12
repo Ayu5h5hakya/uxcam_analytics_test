@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class SpectorEvent(
-    @PrimaryKey val uId: Int,
-    @ColumnInfo(name = "timestamp") val timeStamp : String
+    @PrimaryKey val uId: String,
+    @ColumnInfo(name = "timestamp") val timeStamp : Long,
+    @ColumnInfo(name = "name") val name : String
 )
