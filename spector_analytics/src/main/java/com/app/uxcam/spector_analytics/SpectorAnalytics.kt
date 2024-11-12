@@ -8,12 +8,10 @@ import org.koin.core.component.inject
 
 class SpectorAnalytics(context: Context) : IsolatedKoinComponent() {
 
-    private var workManager: WorkManager = WorkManager.getInstance(context)
     private val spectorRepository: SpectorRepository by inject()
 
     fun startSession() {
-        val workRequest = OneTimeWorkRequestBuilder<AnalyticsWorker>().build()
-        workManager.enqueue(workRequest)
+        spectorRepository.startSession()
     }
 
     fun logEvent() {
@@ -21,7 +19,6 @@ class SpectorAnalytics(context: Context) : IsolatedKoinComponent() {
     }
 
     fun endSession() {
-        val workRequest = OneTimeWorkRequestBuilder<AnalyticsWorker>().build()
-        workManager.enqueue(workRequest)
+
     }
 }

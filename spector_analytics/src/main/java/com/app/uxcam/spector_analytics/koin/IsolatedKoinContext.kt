@@ -1,12 +1,23 @@
 package com.app.uxcam.spector_analytics.koin
 
+import android.content.Context
+import org.koin.core.Koin
+import org.koin.core.KoinApplication
 import org.koin.dsl.koinApplication
 
 object IsolatedKoinContext {
 
-    private val koinApp = koinApplication {
-        modules(spectorModule)
+    private var koinApp: KoinApplication? = null
+
+    fun init(context: Context) {
+        koinApp = koinApplication {
+            modules(spectorModule)
+        }.also {
+            it.koin.declare(context)
+        }
     }
 
-    val koin = koinApp.koin
+    fun getKoin() : Koin {
+        return koinApp!!.koin
+    }
 }
