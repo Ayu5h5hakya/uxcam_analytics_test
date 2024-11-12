@@ -1,18 +1,16 @@
 package com.app.uxcam.analytics
 
 import android.app.Application
-import androidx.hilt.work.HiltWorkerFactory
-import androidx.work.Configuration
-import dagger.hilt.android.HiltAndroidApp
-import javax.inject.Inject
+import com.app.uxcam.spector_analytics.koin.spectorModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
-@HiltAndroidApp
-class AnalyticsApplication : Application(), Configuration.Provider {
-
-    @Inject lateinit var workerFactory: HiltWorkerFactory
-
-    override fun getWorkManagerConfiguration() =
-        Configuration.Builder()
-            .setWorkerFactory(workerFactory)
-            .build()
+class AnalyticsApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            androidContext(this@AnalyticsApplication)
+            modules(spectorModule)
+        }
+    }
 }

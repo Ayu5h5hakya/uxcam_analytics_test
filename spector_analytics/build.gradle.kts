@@ -1,8 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.hilt)
-    id("kotlin-kapt")
 }
 
 android {
@@ -35,17 +33,13 @@ android {
 }
 
 dependencies {
-
+    api("io.insert-koin:koin-android:4.0.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     api(libs.workmanager)
     api(libs.retrofit)
     api(libs.converter.gson)
-    api(libs.hilt.android)
-    api(libs.androidx.hilt.work)
-    kapt(libs.hilt.compiler)
-    kapt(libs.androidx.hilt.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
