@@ -1,5 +1,6 @@
 package com.app.uxcam.analytics
 
+import com.app.uxcam.spector_analytics.AnalyticsApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

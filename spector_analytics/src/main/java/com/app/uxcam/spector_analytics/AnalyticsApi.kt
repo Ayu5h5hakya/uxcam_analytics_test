@@ -1,7 +1,6 @@
-package com.app.uxcam.analytics
+package com.app.uxcam.spector_analytics
 
 import retrofit2.http.GET
-import retrofit2.http.Query
 
 interface AnalyticsApi {
     @GET(".")

@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "uxcam_analytics"
 include(":app")
- 
+include(":spector_analytics")

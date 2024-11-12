@@ -35,3 +35,4 @@ androidx-hilt-compiler = {group = "androidx.hilt", name = "hilt-compiler", versi
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 hilt = {id = "com.google.dagger.hilt.android", version = "2.51.1" }
+android-library = { id = "com.android.library", version.ref = "agp" }

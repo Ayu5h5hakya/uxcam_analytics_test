@@ -1,4 +1,4 @@
-package com.app.uxcam.analytics
+package com.app.uxcam.spector_analytics
 
 import android.content.Context
 import android.util.Log
@@ -16,7 +16,6 @@ class AnalyticsWorker @AssistedInject constructor(
 ) :
     CoroutineWorker(context, params) {
     override suspend fun doWork(): Result {
-        Log.i("analytics-worker", analyticsApi.toString())
         analyticsApi.sendAnalyticsData()
         return Result.success()
     }
