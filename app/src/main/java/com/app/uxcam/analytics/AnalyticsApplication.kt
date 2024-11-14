@@ -13,6 +13,7 @@ class AnalyticsApplication : Application() {
             androidContext(this@AnalyticsApplication)
             workManagerFactory()
             modules(spectorModule)
+            modules(demoModule)
         }
     }
 }

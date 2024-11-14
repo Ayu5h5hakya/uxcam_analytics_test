@@ -4,13 +4,13 @@ import com.app.uxcam.spector_analytics.room.SpectorEvent
 
 interface SpectorRepository {
 
-    fun queueStartSession()
-    fun queueTrack()
-    fun queueEndSession()
+    suspend fun queueStartSession()
+    suspend fun queueTrack()
+    suspend fun queueEndSession()
 
-    fun startSession()
-    fun track()
-    fun endSession()
+    suspend fun startSession()
+    suspend fun track()
+    suspend fun endSession()
 
-    fun getEventQueue() : List<SpectorEvent>
+    suspend fun getEventQueue() : List<SpectorEvent>
 }

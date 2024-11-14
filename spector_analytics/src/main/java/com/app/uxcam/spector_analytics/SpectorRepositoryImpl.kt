@@ -9,15 +9,15 @@ class SpectorRepositoryImpl(
     private val api: AnalyticsApi,
     private val db: SpectorDatabase
 ) : SpectorRepository {
-    override fun queueStartSession() {
-//        db.spectorDao().queue(
-//            SpectorEvent(
-//                UUID.randomUUID().toString(), Date().time, EventRepo.startEvent()
-//            )
-//        )
+    override suspend fun queueStartSession() {
+        db.spectorDao().queue(
+            SpectorEvent(
+                UUID.randomUUID().toString(), Date().time, EventRepo.startEvent()
+            )
+        )
     }
 
-    override fun queueTrack() {
+    override suspend fun queueTrack() {
         db.spectorDao().queue(
             SpectorEvent(
                 UUID.randomUUID().toString(), Date().time, EventRepo.trackEvent("click")
@@ -25,7 +25,7 @@ class SpectorRepositoryImpl(
         )
     }
 
-    override fun queueEndSession() {
+    override suspend fun queueEndSession() {
         db.spectorDao().queue(
             SpectorEvent(
                 UUID.randomUUID().toString(), Date().time, EventRepo.endEvent()
@@ -33,19 +33,19 @@ class SpectorRepositoryImpl(
         )
     }
 
-    override fun startSession() {
+    override suspend fun startSession() {
 
     }
 
-    override fun track() {
+    override suspend fun track() {
 
     }
 
-    override fun endSession() {
+    override suspend fun endSession() {
 
     }
 
-    override fun getEventQueue(): List<SpectorEvent> {
-        return listOf()
+    override suspend fun getEventQueue(): List<SpectorEvent> {
+        return db.spectorDao().getAll()
     }
 }

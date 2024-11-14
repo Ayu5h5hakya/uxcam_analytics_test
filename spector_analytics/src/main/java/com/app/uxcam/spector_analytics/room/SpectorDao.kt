@@ -7,8 +7,8 @@ import androidx.room.Query
 @Dao
 interface SpectorDao {
     @Query("SELECT * FROM spectorevent")
-    fun getAll() : List<SpectorEvent>
+    suspend fun getAll() : List<SpectorEvent>
 
     @Insert
-    fun queue(event: SpectorEvent)
+    suspend fun queue(event: SpectorEvent)
 }
