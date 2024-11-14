@@ -35,14 +35,14 @@ android {
 
 dependencies {
     api(libs.koin.android)
+    api(libs.workmanager)
+    api("io.insert-koin:koin-androidx-workmanager:3.3.3")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.workmanager)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.androidx.room.runtime)
-    implementation("io.insert-koin:koin-androidx-workmanager:3.3.3")
     annotationProcessor(libs.androidx.room.compiler)
     ksp(libs.androidx.room.compiler)
     testImplementation(libs.junit)

@@ -25,7 +25,7 @@ val spectorModule = module {
         SpectorRepositoryImpl(get(), get())
     }
     single { WorkManager.getInstance(androidContext()) }
-    //workerOf(::AnalyticsWorker)
+    workerOf(::AnalyticsWorker)
     single { Room.databaseBuilder(
         androidContext(),
         SpectorDatabase::class.java, "spector_database"
