@@ -1,12 +1,14 @@
 package com.app.uxcam.spector_analytics.koin
 
+import android.os.Build
 import androidx.room.Room
 import androidx.work.WorkManager
 import com.app.uxcam.spector_analytics.AnalyticsApi
 import com.app.uxcam.spector_analytics.AnalyticsWorker
 import com.app.uxcam.spector_analytics.SpectorRepository
 import com.app.uxcam.spector_analytics.SpectorRepositoryImpl
-import com.app.uxcam.spector_analytics.room.SpectorDatabase
+import com.app.uxcam.spector_analytics.datasources.local.DeviceContext
+import com.app.uxcam.spector_analytics.datasources.local.SpectorDatabase
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.workmanager.dsl.workerOf
 import org.koin.dsl.module
@@ -14,6 +16,14 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 val spectorModule = module {
+    single {
+        DeviceContext(
+            sdk = Build.VERSION.SDK_INT,
+            brand = Build.BRAND,
+            model = Build.MODEL,
+            manufacturer = Build.MANUFACTURER
+        )
+    }
     single {
         Retrofit.Builder()
             .baseUrl("https://eo5wfr96dnev8q2.m.pipedream.net")
@@ -26,8 +36,10 @@ val spectorModule = module {
     }
     single { WorkManager.getInstance(androidContext()) }
     workerOf(::AnalyticsWorker)
-    single { Room.databaseBuilder(
-        androidContext(),
-        SpectorDatabase::class.java, "spector_database"
-    ).build()}
+    single {
+        Room.databaseBuilder(
+            androidContext(),
+            SpectorDatabase::class.java, "spector_database"
+        ).build()
+    }
 }

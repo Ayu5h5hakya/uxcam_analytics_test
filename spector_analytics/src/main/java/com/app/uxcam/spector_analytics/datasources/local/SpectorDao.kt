@@ -1,4 +1,4 @@
-package com.app.uxcam.spector_analytics.room
+package com.app.uxcam.spector_analytics.datasources.local
 
 import androidx.room.Dao
 import androidx.room.Insert

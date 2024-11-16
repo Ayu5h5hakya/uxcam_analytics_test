@@ -1,8 +1,10 @@
 package com.app.uxcam.spector_analytics
 
-import retrofit2.http.GET
+import com.app.uxcam.spector_analytics.datasources.remote.SpectorData
+import retrofit2.http.Body
+import retrofit2.http.POST
 
 interface AnalyticsApi {
-    @GET(".")
-    suspend fun sendAnalyticsData()
+    @POST(".")
+    suspend fun sendAnalyticsData(@Body data: SpectorData)
 }

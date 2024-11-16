@@ -34,7 +34,7 @@ android {
 }
 
 dependencies {
-    api(libs.koin.android)
+    implementation(libs.koin.android)
     api(libs.workmanager)
     api(libs.insert.koin.koin.androidx.workmanager)
     implementation(libs.androidx.core.ktx)

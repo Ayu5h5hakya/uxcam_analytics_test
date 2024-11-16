@@ -1,16 +1,15 @@
 package com.app.uxcam.spector_analytics
 
-import com.app.uxcam.spector_analytics.room.SpectorEvent
+import com.app.uxcam.spector_analytics.datasources.local.DeviceContext
+import com.app.uxcam.spector_analytics.datasources.local.SpectorEvent
 
 interface SpectorRepository {
 
     suspend fun queueStartSession()
-    suspend fun queueTrack()
+    suspend fun queueTrack(name : String,data : Map<String, String>)
     suspend fun queueEndSession()
 
-    suspend fun startSession()
-    suspend fun track()
-    suspend fun endSession()
+    suspend fun batchUpdate(deviceContext: DeviceContext, queue : List<SpectorEvent>)
 
     suspend fun getEventQueue() : List<SpectorEvent>
 }

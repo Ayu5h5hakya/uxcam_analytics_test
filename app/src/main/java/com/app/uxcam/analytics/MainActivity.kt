@@ -4,18 +4,28 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
+import androidx.navigation.compose.rememberNavController
 import com.app.uxcam.analytics.core.theme.MyAppTheme
+import kotlinx.serialization.Serializable
+import org.koin.androidx.compose.koinViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
+@Serializable
+object ScreenA
+
+@Serializable
+object ScreenB
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,42 +34,46 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContent {
             MyAppTheme {
-                Scaffold { padding ->
-                    val viewModel : DemoViewModel by viewModel()
-                    DemoApp(Modifier.padding(padding), viewModel)
-                }
+                DemoApp()
             }
         }
     }
 }
 
 @Composable
-fun DemoApp(modifier: Modifier = Modifier, viewModel: DemoViewModel) {
-    Column(
-        modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+fun DemoApp(
+    modifier: Modifier = Modifier,
+    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
+) {
+    val viewModel = koinViewModel<DemoViewModel>()
+    val navController = rememberNavController()
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver {_, event ->
+            when(event) {
+                Lifecycle.Event.ON_CREATE -> {
+                    viewModel.startSession()
+                }
+                else -> {}
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        return@DisposableEffect onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
+    NavHost(
+        navController = navController,
+        startDestination = ScreenA
     ) {
-        Button(
-            onClick = {
-                viewModel.startSession()
-            }
-        ) {
-            Text("Start session")
+        composable<ScreenA> {
+            ScreenA(
+                gotoB = {
+                    navController.navigate(route = ScreenB)
+                }
+            )
         }
-        Button(
-            onClick = {
-                viewModel.trackEvent()
-            }
-        ) {
-            Text("Track event")
-        }
-        Button(
-            onClick = {
-                viewModel.trackEvent()
-            }
-        ) {
-            Text("End session")
+        composable<ScreenB> {
+            ScreenB()
         }
     }
 }
