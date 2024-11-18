@@ -19,10 +19,10 @@ class SpectorAnalytics : KoinComponent {
 
     init {
         val constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.METERED)
+            .setRequiredNetworkType(NetworkType.UNMETERED)
             .build()
         val workRequest =
-            PeriodicWorkRequestBuilder<AnalyticsWorker>(10, TimeUnit.SECONDS).setInitialDelay(
+            PeriodicWorkRequestBuilder<AnalyticsWorker>(15, TimeUnit.MINUTES).setInitialDelay(
                 5,
                 TimeUnit.SECONDS
             )
