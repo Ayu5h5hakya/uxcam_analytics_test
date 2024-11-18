@@ -11,8 +11,9 @@ import com.app.uxcam.spector_analytics.worker.AnalyticsWorker
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.util.concurrent.TimeUnit
+import kotlin.time.Duration
 
-class SpectorAnalytics : KoinComponent {
+class SpectorAnalytics(delayInMillis: Long = 0, repeatInterval: Long = 15) : KoinComponent {
 
     private val spectorRepository: SpectorRepository by inject()
     private val workManager: WorkManager by inject()
@@ -22,10 +23,11 @@ class SpectorAnalytics : KoinComponent {
             .setRequiredNetworkType(NetworkType.UNMETERED)
             .build()
         val workRequest =
-            PeriodicWorkRequestBuilder<AnalyticsWorker>(15, TimeUnit.MINUTES).setInitialDelay(
-                5,
-                TimeUnit.SECONDS
-            )
+            PeriodicWorkRequestBuilder<AnalyticsWorker>(repeatInterval, TimeUnit.MINUTES)
+                .setInitialDelay(
+                    delayInMillis,
+                    TimeUnit.SECONDS
+                )
                 .setConstraints(constraints)
                 .build()
         workManager.enqueue(workRequest)
