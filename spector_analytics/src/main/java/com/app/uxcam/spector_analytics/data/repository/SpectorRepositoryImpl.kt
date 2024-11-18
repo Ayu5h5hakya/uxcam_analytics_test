@@ -1,5 +1,6 @@
 package com.app.uxcam.spector_analytics.data.repository
 
+import com.app.uxcam.spector_analytics.Configuration
 import com.app.uxcam.spector_analytics.data.datasources.remote.AnalyticsApi
 import com.app.uxcam.spector_analytics.domain.repository.SpectorRepository
 import com.app.uxcam.spector_analytics.data.datasources.local.DeviceContext
@@ -19,7 +20,7 @@ class SpectorRepositoryImpl(
         if (sessionAlreadyExists) {
             val session = db.sessionDao().getLatestSessionData()
             val startTimeStamp = session.timeStamp
-            if (currentTimeStamp - startTimeStamp < 10000L) {
+            if (currentTimeStamp - startTimeStamp < Configuration.SESSION_TIMEOUT) {
                 //existing session is valid, reuse it
                 return session
             } else {
@@ -66,13 +67,13 @@ class SpectorRepositoryImpl(
     override suspend fun queueEndSession() {
         val currentTimeStamp = Date().time
         val session = getSession(currentTimeStamp)
-        db.sessionDao().delete(session.sessionNumber)
         db.spectorDao().queue(
             SpectorEvent.end(
                 sessionId = session.sessionNumber,
                 timeStamp = currentTimeStamp,
             )
         )
+        db.sessionDao().deleteAll()
     }
 
     override suspend fun batchUpdate(deviceContext: DeviceContext, queue: List<SpectorEvent>) {

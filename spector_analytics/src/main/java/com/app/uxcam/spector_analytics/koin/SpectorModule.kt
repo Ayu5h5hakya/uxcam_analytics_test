@@ -3,6 +3,7 @@ package com.app.uxcam.spector_analytics.koin
 import android.os.Build
 import androidx.room.Room
 import androidx.work.WorkManager
+import com.app.uxcam.spector_analytics.Configuration
 import com.app.uxcam.spector_analytics.data.datasources.remote.AnalyticsApi
 import com.app.uxcam.spector_analytics.worker.AnalyticsWorker
 import com.app.uxcam.spector_analytics.domain.repository.SpectorRepository
@@ -26,7 +27,7 @@ val spectorModule = module {
     }
     single {
         Retrofit.Builder()
-            .baseUrl("https://eo5wfr96dnev8q2.m.pipedream.net")
+            .baseUrl(Configuration.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(AnalyticsApi::class.java)
