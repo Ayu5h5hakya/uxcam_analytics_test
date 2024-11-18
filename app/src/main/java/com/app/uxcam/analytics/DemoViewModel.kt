@@ -1,6 +1,5 @@
 package com.app.uxcam.analytics
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.uxcam.spector_analytics.SpectorAnalytics

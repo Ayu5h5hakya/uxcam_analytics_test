@@ -1,5 +1,7 @@
 package com.app.uxcam.spector_analytics
 
+import androidx.work.ListenableWorker
+import androidx.work.PeriodicWorkRequest
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.app.uxcam.spector_analytics.domain.repository.SpectorRepository
@@ -22,14 +24,29 @@ class SpectorAnalytics : KoinComponent {
         workManager.enqueue(workRequest)
     }
 
+    /**
+     * Add a start event item to the queue. [AnalyticsWorker] takes all queued up events from the db and syncs them
+     * with the remote endpoint [Configuration.BASE_URL]
+     */
     suspend fun start() {
         spectorRepository.queueStartSession()
     }
 
+    /**
+     * Add a log event item to the queue. [AnalyticsWorker] takes all queued up events from the db and syncs them
+     * with the remote endpoint [Configuration.BASE_URL]
+     *
+     * @param name event name that will be visible in the remote end point logs
+     * @param data optional event parameters
+     */
     suspend fun logEvent(name: String, data: Map<String, String>) {
         spectorRepository.queueTrack(name, data)
     }
 
+    /**
+     * Add a end event item to the queue. [AnalyticsWorker] takes all queued up events from the db and syncs them
+     * with the remote endpoint [Configuration.BASE_URL]
+     */
     suspend fun endSession() {
         spectorRepository.queueEndSession()
     }

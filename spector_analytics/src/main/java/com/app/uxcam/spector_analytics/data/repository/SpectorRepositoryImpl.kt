@@ -24,7 +24,7 @@ class SpectorRepositoryImpl(
                 //existing session is valid, reuse it
                 return session
             } else {
-                //existing session has timed out, create a new one
+                //existing session has timed out. Create a new one
                 val data = SessionData(
                     timeStamp = currentTimeStamp,
                     sessionNumber = session.sessionNumber + 1
