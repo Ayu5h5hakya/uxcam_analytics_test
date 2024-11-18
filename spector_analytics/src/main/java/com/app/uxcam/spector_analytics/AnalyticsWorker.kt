@@ -1,7 +1,6 @@
 package com.app.uxcam.spector_analytics
 
 import android.content.Context
-import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.app.uxcam.spector_analytics.datasources.local.DeviceContext
@@ -18,8 +17,11 @@ class AnalyticsWorker (
     private val deviceContext : DeviceContext by inject()
 
     override suspend fun doWork(): Result {
-        Log.i("analytics-worker", "doWork: ")
-        //spectorRepository.batchUpdate(deviceContext, spectorRepository.getEventQueue())
-        return Result.success()
+        try {
+            spectorRepository.batchUpdate(deviceContext, spectorRepository.getEventQueue())
+            return Result.success()
+        } catch (exception : Exception) {
+            return Result.failure()
+        }
     }
 }

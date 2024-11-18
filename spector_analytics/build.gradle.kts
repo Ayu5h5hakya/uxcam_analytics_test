@@ -11,7 +11,7 @@ android {
     defaultConfig {
         minSdk = 24
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.app.uxcam.spector_analytics.SpectorTestRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -46,7 +46,14 @@ dependencies {
     implementation(libs.androidx.room.coroutine)
     annotationProcessor(libs.androidx.room.compiler)
     ksp(libs.androidx.room.compiler)
-    testImplementation(libs.junit)
+    // Test dependencies
+    androidTestImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.koin.test)
+    androidTestImplementation(libs.koin.android.v350)
+    androidTestImplementation(libs.mockk.android)
+    // Work test dependencies
+    androidTestImplementation(libs.androidx.work.testing)
 }

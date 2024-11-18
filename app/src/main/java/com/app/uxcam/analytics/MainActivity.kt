@@ -11,15 +11,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.LocalLifecycleOwner
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.app.uxcam.analytics.core.theme.MyAppTheme
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @Serializable
 object ScreenA
@@ -53,7 +50,9 @@ fun DemoApp(
                 Lifecycle.Event.ON_CREATE -> {
                     viewModel.startSession()
                 }
-                else -> {}
+                else -> {
+                    //custom events for other lifecycle events can be created here.
+                }
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)
