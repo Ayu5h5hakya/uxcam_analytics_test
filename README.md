@@ -2,6 +2,15 @@
 
 My submission for the UXCam technical challenge.
 
+## Demo Instructions
+This sample SDK uses [Requestbin](https://pipedream.com/requestbin) to inspect incoming requests. I have used it as a mock Analytics Dashboard.
+In order to visualize the requests, please got to [Requestbin](https://pipedream.com/requestbin) and follow the instructions to create a new request bin.
+Then set the endpoint URL in `BASE_URL` located in `spector_analytics\src\main\java\com.app.uxcam.spector_analytics\Configuration`. 
+
+The endpoint should have the following format : https://eo5wfr96dnev8q2.m.pipedream.net (THIS IS JUST AN EXAMPLE)
+
+Also, due to the very nature of the WorkManager API, requests will appear in this dashboard after each 15 min interval.  15 minutes is the minimum interval set by the OS, longer intervals are permitted but anything smaller than 15 is not permitted.
+
 ## SDK Dependencies
 - Koin
 - Retrofit
