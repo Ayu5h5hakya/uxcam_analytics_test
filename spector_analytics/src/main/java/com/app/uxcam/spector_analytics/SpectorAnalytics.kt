@@ -28,7 +28,7 @@ class SpectorAnalytics(delayInMillis: Long = 0, repeatInterval: Long = 15) : Koi
                     delayInMillis,
                     TimeUnit.SECONDS
                 )
-                .setConstraints(constraints)
+                //.setConstraints(constraints)
                 .build()
         workManager.enqueue(workRequest)
     }

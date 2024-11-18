@@ -1,6 +1,7 @@
 package com.app.uxcam.spector_analytics.worker
 
 import android.content.Context
+import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.app.uxcam.spector_analytics.data.datasources.local.DeviceContext

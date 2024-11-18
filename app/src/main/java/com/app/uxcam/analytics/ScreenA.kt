@@ -14,8 +14,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ScreenA(
-    modifier: Modifier = Modifier,
-    gotoB: () -> Unit = {}
+    modifier: Modifier = Modifier
 ) {
 
     Scaffold { padding ->
@@ -44,16 +43,15 @@ fun ScreenA(
             Button(
                 onClick = {
                     viewModel.trackEvent(
-                        "screen_view",
+                        "login",
                         data = mapOf(
-                            "previous_screen" to "ScreenA",
-                            "current_screen" to "ScreenB"
+                            "email" to "test@mail.com",
+                            "password" to "12345"
                         )
                     )
-                    gotoB()
                 }
             ) {
-                Text("Goto Screen B")
+                Text("User Auth - Login")
             }
             Button(
                 onClick = {

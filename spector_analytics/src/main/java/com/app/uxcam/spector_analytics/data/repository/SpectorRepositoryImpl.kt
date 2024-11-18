@@ -21,17 +21,19 @@ class SpectorRepositoryImpl(
             val session = db.sessionDao().getLatestSessionData()
             val startTimeStamp = session.timeStamp
             if (currentTimeStamp - startTimeStamp < Configuration.SESSION_TIMEOUT) {
-                //existing session is valid, reuse it
-                return session
-            } else {
-                //existing session has timed out. Create a new one
-                val data = SessionData(
-                    timeStamp = currentTimeStamp,
-                    sessionNumber = session.sessionNumber + 1
-                )
-                db.sessionDao().add(data)
-                return data
+                val event = db.spectorDao().getLastEventForSession(session.sessionNumber)
+                if (event.name != "end_session") {
+                    //existing session is valid, reuse it
+                    return session
+                }
             }
+            //existing session has timed out. Create a new one
+            val data = SessionData(
+                timeStamp = currentTimeStamp,
+                sessionNumber = session.sessionNumber + 1
+            )
+            db.sessionDao().add(data)
+            return data
         } else {
             val data = SessionData(timeStamp = currentTimeStamp, sessionNumber = 1)
             db.sessionDao().add(data)
@@ -73,7 +75,6 @@ class SpectorRepositoryImpl(
                 timeStamp = currentTimeStamp,
             )
         )
-        db.sessionDao().deleteAll()
     }
 
     override suspend fun batchUpdate(deviceContext: DeviceContext, queue: List<SpectorEvent>) {

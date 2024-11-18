@@ -21,9 +21,6 @@ import org.koin.androidx.compose.koinViewModel
 @Serializable
 object ScreenA
 
-@Serializable
-object ScreenB
-
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,13 +42,10 @@ fun DemoApp(
     val viewModel = koinViewModel<DemoViewModel>()
     val navController = rememberNavController()
     DisposableEffect(lifecycleOwner) {
-        val observer = LifecycleEventObserver {_, event ->
-            when(event) {
-                Lifecycle.Event.ON_CREATE -> {
-                    viewModel.startSession()
-                }
+        val observer = LifecycleEventObserver { _, event ->
+            when (event) {
                 else -> {
-                    //custom events for other lifecycle events can be created here.
+                    //custom events for lifecycle events can be created here.
                 }
             }
         }
@@ -65,14 +59,7 @@ fun DemoApp(
         startDestination = ScreenA
     ) {
         composable<ScreenA> {
-            ScreenA(
-                gotoB = {
-                    navController.navigate(route = ScreenB)
-                }
-            )
-        }
-        composable<ScreenB> {
-            ScreenB()
+            ScreenA()
         }
     }
 }

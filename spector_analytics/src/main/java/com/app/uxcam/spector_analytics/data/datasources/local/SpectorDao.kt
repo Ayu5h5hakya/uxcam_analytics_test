@@ -11,4 +11,7 @@ interface SpectorDao {
 
     @Insert
     suspend fun queue(event: SpectorEvent)
+
+    @Query("SELECT * FROM spectorevent WHERE session_id = :sessionId ORDER BY timestamp DESC LIMIT 1")
+    suspend fun getLastEventForSession(sessionId: Int) : SpectorEvent
 }
