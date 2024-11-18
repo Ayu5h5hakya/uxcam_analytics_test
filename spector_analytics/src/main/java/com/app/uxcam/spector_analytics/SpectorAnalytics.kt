@@ -1,6 +1,8 @@
 package com.app.uxcam.spector_analytics
 
+import androidx.work.Constraints
 import androidx.work.ListenableWorker
+import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequest
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
@@ -16,11 +18,16 @@ class SpectorAnalytics : KoinComponent {
     private val workManager: WorkManager by inject()
 
     init {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.METERED)
+            .build()
         val workRequest =
             PeriodicWorkRequestBuilder<AnalyticsWorker>(10, TimeUnit.SECONDS).setInitialDelay(
                 5,
                 TimeUnit.SECONDS
-            ).build()
+            )
+                .setConstraints(constraints)
+                .build()
         workManager.enqueue(workRequest)
     }
 
@@ -39,7 +46,7 @@ class SpectorAnalytics : KoinComponent {
      * @param name event name that will be visible in the remote end point logs
      * @param data optional event parameters
      */
-    suspend fun logEvent(name: String, data: Map<String, String>) {
+    suspend fun logEvent(name: String, data: Map<String, String> = mapOf()) {
         spectorRepository.queueTrack(name, data)
     }
 
