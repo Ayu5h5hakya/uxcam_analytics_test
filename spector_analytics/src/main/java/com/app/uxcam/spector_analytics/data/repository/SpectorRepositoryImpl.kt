@@ -1,10 +1,12 @@
-package com.app.uxcam.spector_analytics
+package com.app.uxcam.spector_analytics.data.repository
 
-import com.app.uxcam.spector_analytics.datasources.local.DeviceContext
-import com.app.uxcam.spector_analytics.datasources.local.SessionData
-import com.app.uxcam.spector_analytics.datasources.local.SpectorDatabase
-import com.app.uxcam.spector_analytics.datasources.local.SpectorEvent
-import com.app.uxcam.spector_analytics.datasources.remote.SpectorData
+import com.app.uxcam.spector_analytics.data.datasources.remote.AnalyticsApi
+import com.app.uxcam.spector_analytics.domain.repository.SpectorRepository
+import com.app.uxcam.spector_analytics.data.datasources.local.DeviceContext
+import com.app.uxcam.spector_analytics.data.datasources.local.SessionData
+import com.app.uxcam.spector_analytics.data.datasources.local.SpectorDatabase
+import com.app.uxcam.spector_analytics.data.datasources.local.SpectorEvent
+import com.app.uxcam.spector_analytics.data.datasources.remote.SpectorData
 import java.util.Date
 
 class SpectorRepositoryImpl(
@@ -55,7 +57,7 @@ class SpectorRepositoryImpl(
             SpectorEvent(
                 sessionId = session.sessionNumber,
                 timeStamp = currentTimeStamp,
-                name = EventRepo.trackEvent(name),
+                name = "track_$name",
                 data = data
             )
         )

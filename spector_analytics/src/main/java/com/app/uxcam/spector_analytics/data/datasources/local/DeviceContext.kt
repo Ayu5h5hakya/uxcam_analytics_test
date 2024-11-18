@@ -1,4 +1,4 @@
-package com.app.uxcam.spector_analytics.datasources.local
+package com.app.uxcam.spector_analytics.data.datasources.local
 
 data class DeviceContext(
     private val model : String,

@@ -1,7 +1,7 @@
-package com.app.uxcam.spector_analytics
+package com.app.uxcam.spector_analytics.domain.repository
 
-import com.app.uxcam.spector_analytics.datasources.local.DeviceContext
-import com.app.uxcam.spector_analytics.datasources.local.SpectorEvent
+import com.app.uxcam.spector_analytics.data.datasources.local.DeviceContext
+import com.app.uxcam.spector_analytics.data.datasources.local.SpectorEvent
 
 interface SpectorRepository {
 

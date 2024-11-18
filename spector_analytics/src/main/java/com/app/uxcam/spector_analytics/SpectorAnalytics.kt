@@ -1,11 +1,9 @@
 package com.app.uxcam.spector_analytics
 
-import android.content.Context
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.app.uxcam.spector_analytics.domain.repository.SpectorRepository
+import com.app.uxcam.spector_analytics.worker.AnalyticsWorker
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.util.concurrent.TimeUnit

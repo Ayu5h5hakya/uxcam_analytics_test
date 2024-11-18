@@ -1,4 +1,4 @@
-package com.app.uxcam.spector_analytics
+package com.app.uxcam.spector_analytics.worker
 
 import android.content.Context
 import androidx.work.CoroutineWorker

@@ -11,9 +11,13 @@ import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import androidx.work.testing.SynchronousExecutor
 import androidx.work.testing.WorkManagerTestInitHelper
-import com.app.uxcam.spector_analytics.datasources.local.DeviceContext
-import com.app.uxcam.spector_analytics.datasources.local.SpectorDatabase
-import com.app.uxcam.spector_analytics.datasources.remote.SpectorData
+import com.app.uxcam.spector_analytics.data.datasources.remote.AnalyticsApi
+import com.app.uxcam.spector_analytics.data.datasources.local.DeviceContext
+import com.app.uxcam.spector_analytics.data.datasources.local.SpectorDatabase
+import com.app.uxcam.spector_analytics.data.datasources.remote.SpectorData
+import com.app.uxcam.spector_analytics.data.repository.SpectorRepositoryImpl
+import com.app.uxcam.spector_analytics.domain.repository.SpectorRepository
+import com.app.uxcam.spector_analytics.worker.AnalyticsWorker
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest

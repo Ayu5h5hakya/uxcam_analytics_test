@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.platform.app.InstrumentationRegistry
-import com.app.uxcam.spector_analytics.datasources.local.SpectorDatabase
+import com.app.uxcam.spector_analytics.data.datasources.local.SpectorDatabase
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin

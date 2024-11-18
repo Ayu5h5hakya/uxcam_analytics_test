@@ -3,11 +3,12 @@ package com.app.uxcam.spector_analytics
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.app.uxcam.spector_analytics.datasources.local.SpectorDatabase
-import com.app.uxcam.spector_analytics.koin.spectorModule
+import com.app.uxcam.spector_analytics.data.datasources.remote.AnalyticsApi
+import com.app.uxcam.spector_analytics.data.datasources.local.SpectorDatabase
+import com.app.uxcam.spector_analytics.data.repository.SpectorRepositoryImpl
+import com.app.uxcam.spector_analytics.domain.repository.SpectorRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.runTest
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat

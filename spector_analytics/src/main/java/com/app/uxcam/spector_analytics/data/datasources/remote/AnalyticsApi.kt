@@ -1,6 +1,5 @@
-package com.app.uxcam.spector_analytics
+package com.app.uxcam.spector_analytics.data.datasources.remote
 
-import com.app.uxcam.spector_analytics.datasources.remote.SpectorData
 import retrofit2.http.Body
 import retrofit2.http.POST
 
